@@ -62,11 +62,129 @@ class Node {
       return false;
     }
   
-    remove(){
+    breadthSearchFirst(){
+      let currentNode = this.root;
+      let queue = []; //Queue
+      let list = [];
   
+      queue.push(currentNode);
+  
+      while(queue.length > 0){
+        currentNode = queue.shift();
+        list.push(currentNode.value);
+        if(currentNode.left){
+          queue.push(currentNode.left);
+        }
+        if(currentNode.right){
+          queue.push(currentNode.right);
+        }
+      }
+  
+      return list;
     }
-  }
   
+    
+  bfsTransversal(){
+    let currentNode = this.root;
+    let queue = []; //Queue
+    let list = [];
+
+    queue.push(currentNode);
+
+    while(queue.length > 0){
+      currentNode = queue.shift();
+      list.push(currentNode.value);
+      if(currentNode.left){
+        queue.push(currentNode.left);
+      }
+      if(currentNode.right){
+        queue.push(currentNode.right);
+      }
+    }
+
+    return list;
+  }
+
+  bfsTransversalR(queue, list){
+    if(queue.length === 0){
+      return list;
+    }
+    let currentNode = queue.shift();
+    list.push(currentNode.value);
+    if(currentNode.left){
+      queue.push(currentNode.left);
+    }
+    if(currentNode.right){
+      queue.push(currentNode.right);
+    }
+    return this.bfsTransversalR(queue, list);
+  }
+
+  dfsTPreorder(list){
+    return preOrder(this.root, list);
+  }
+
+  dfsTPostOrder(list){
+    return postOrder(this.root, list);
+  }
+
+  dfsTInOrder(list){
+    return inOrder(this.root, list);
+  }
+
+
+  
+preOrder(node, list){
+  console.log(node.value);
+  list.push(node.value);
+
+  if(node.left){
+    preOrder(node.left, list);
+  }
+
+  if(node.right){
+    preOrder(node.right, list);
+  }
+
+  return list;
+}
+
+postOrder(node, list){
+
+  if(node.left){
+    postOrder(node.left, list);
+  }
+
+  if(node.right){
+    postOrder(node.right, list);
+  }
+  list.push(node.value);
+
+  return list;
+}
+
+inOrder(node, list){
+
+  if(node.left){
+    inOrder(node.left, list);
+  }
+
+  list.push(node.value);
+
+  if(node.right){
+    inOrder(node.right, list);
+  }
+
+  return list;
+}
+
+
+  remove(){
+
+  }
+}
+
+
   const tree = new BinarySearchTree();
   
   tree.insert(9);
